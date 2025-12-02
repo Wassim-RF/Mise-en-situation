@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mise en situation</title>
+</head>
+<body style=" height: 100vh; display: flex; justify-content: center; align-items: center;">
+    <div>
+        <input type="number" id="loan_amount" placeholder="Loan amount">
+        <br>
+        <input type="number" id="duration_in_months" placeholder="Duration en mois">
+        <br>
+        <input type="number" id="salary" placeholder="Salary">
+        <br>
+        <button id="calcule_button">Calcule</button>
+    </div>
+    <p></p>
+</body>
+<script>
+    const loan_amount = document .getElementById("loan_amount");
+    const duration_in_months = document.getElementById("duration_in_months");
+    const salary = document.getElementById("salary");
+    const calcule_button = document.getElementById("calcule_button");
+
+    calcule_button.addEventListener("click" , () => {
+        let pr ;
+        if (duration_in_months.value <= 12) {
+            pr = 0.03;
+        } else if (duration_in_months.value >= 13 && duration_in_months.value <= 36) {
+            pr = 0.05;
+        } else if (duration_in_months.value > 36) {
+            pr = 0.07;
+        } else {
+            alert ("La duration en mois n'existe pas !")
+        }
+        console.log(pr);
+
+        let total = loan_amount.value * (1 + pr);
+        console.log(total);
+        let mensualite = total / duration_in_months.value;
+        console.log(mensualite);
+        
+        if (mensualite > salary.value * 0.4) {
+            alert ("Refusé : mensualité trop élevée (X MAD) pour un salaire de Y.")
+        } else {
+            document.querySelector("p").innerText = "Mentant demande : " + loan_amount.value + ". Duree : " + duration_in_months.value + ". Taux applique : " + pr + ". Mensualite : " + mensualite + ". Total a rembourse : " + total; 
+        }
+    });
+</script>
+</html>
